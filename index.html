@@ -12,6 +12,7 @@
 <script id="ib-splash-precheck">
 
 try{if(localStorage.getItem('ib_m_theme')==='infernal'){document.documentElement.classList.add('sp-dark');var _spmc=document.getElementById('meta-theme-color');if(_spmc)_spmc.setAttribute('content','#141a2e')}}catch(e){}
+try{if(localStorage.getItem('ib_m_theme')==='orion'){document.documentElement.classList.add('ib-orion');document.documentElement.style.background='#ece4f6';var _spmc2=document.getElementById('meta-theme-color');if(_spmc2)_spmc2.setAttribute('content','#e6d9f5')}}catch(e){}/* Orion · 雾紫玻璃：首帧提前着色（主题包见文件尾部 ib-orion-theme） */
 </script>
 <style id="ib-splash-firstpaint">html{background:#dfe9f6}html.sp-dark{background:#141a2e}</style>
 <style id="ib-sa-vars">:root{--sat:env(safe-area-inset-top,0px);--sar:env(safe-area-inset-right,0px);--sab:env(safe-area-inset-bottom,0px);--sal:env(safe-area-inset-left,0px)}</style>
@@ -38,9 +39,10 @@ try{if(localStorage.getItem('ib_m_theme')==='infernal'){document.documentElement
 
 (function(){try{
   if(localStorage.getItem('ib_lockOn')==='0')return;/* v101-m：锁屏默认开启；只有明确写入 0 才跳过预遮罩 */
-  var dk=(localStorage.getItem('ib_m_theme')||'internal')==='infernal';
+  var _ovm=localStorage.getItem('ib_m_theme')||'internal';
+  var dk=_ovm==='infernal';
   var st=document.createElement('style');st.id='lk-preveil-style';
-  st.textContent='#lk-preveil{position:fixed;inset:0;z-index:4001;background:'+(dk?'#0d1524':'#eef2f8')+';transition:opacity 0.4s}#lk-preveil.off{opacity:0;pointer-events:none}';
+  st.textContent='#lk-preveil{position:fixed;inset:0;z-index:4001;background:'+(dk?'#0d1524':(_ovm==='orion'?'#ece4f6':'#eef2f8'))+';transition:opacity 0.4s}#lk-preveil.off{opacity:0;pointer-events:none}';
   document.head.appendChild(st);
   document.addEventListener('DOMContentLoaded',function(){try{var v=document.createElement('div');v.id='lk-preveil';document.body.appendChild(v)}catch(e){}});
 }catch(e){}})();
@@ -4450,13 +4452,13 @@ function _uiCustomApply(){
   
   const drA=(u.drawerAlpha||100)/100;if(drA!==1)css.push('body:not(.theme-infernal) #drawer{background:rgba(248,251,255,'+_uvA(0.62,drA).toFixed(2)+')}body.theme-infernal #drawer{background:rgba(13,18,30,'+_uvA(0.7,drA).toFixed(2)+')}');
   const inA=(u.inputAlpha||100)/100;if(inA!==1)css.push('body:not(.theme-infernal) .cv-input.glass{background:rgba(255,255,255,'+_uvA(0.6,inA).toFixed(2)+')}body.theme-infernal .cv-input.glass{background:rgba(13,18,30,'+_uvA(0.55,inA).toFixed(2)+')}');
-  const lnA=(u.lineAlpha==null?100:u.lineAlpha)/100;if(lnA!==1)css.push('body:not(.theme-infernal){--glass-line:rgba(255,255,255,'+_uvA(0.7,lnA).toFixed(2)+');--panel-line:rgba(255,255,255,'+_uvA(0.7,lnA).toFixed(2)+')}body.theme-infernal{--glass-line:rgba(180,205,245,'+_uvA(0.26,lnA).toFixed(2)+');--panel-line:rgba(165,188,230,'+_uvA(0.22,lnA).toFixed(2)+')}');
+  const lnA=(u.lineAlpha==null?100:u.lineAlpha)/100;if(lnA!==1)css.push('body:not(.theme-infernal),html.ib-orion body:not(.theme-infernal){--glass-line:rgba(255,255,255,'+_uvA(0.7,lnA).toFixed(2)+');--panel-line:rgba(255,255,255,'+_uvA(0.7,lnA).toFixed(2)+')}body.theme-infernal{--glass-line:rgba(180,205,245,'+_uvA(0.26,lnA).toFixed(2)+');--panel-line:rgba(165,188,230,'+_uvA(0.22,lnA).toFixed(2)+')}');
   const bgB=Number(u.bgBlur)||0;if(bgB>0)css.push('body::before,#conv::before{filter:blur('+bgB+'px);transform:scale(1.06)}');
   if(u.chatFont==='serif')css.push('.m{font-family:var(--serif)}.m .ws-op-card,.m .vmsg,.m .vm-tr,.m .m-time,.m .gen-photo,.m .lk-card{font-family:"Noto Sans SC","PingFang SC","Microsoft YaHei",system-ui,sans-serif}');/* v190-p：聊天正文衬线字体（只换气泡正文，卡片 / 语音条 / 时间不换） */
-  if(u.accColor)css.push('body,body.theme-infernal{--acc:'+u.accColor+'}');/* v69-m t12：强调色两主题同色覆写 */
+  if(u.accColor)css.push('body,html.ib-orion body,body.theme-infernal{--acc:'+u.accColor+'}');/* v69-m t12：强调色两主题同色覆写（Orion 主题同受用户自定色管） */
   const tc=u.txColor||'';/* v70-m r2：全站文字颜色（默认/黑/白，两主题同覆写）+ 文字投影（投影底色按所选颜色与主题分别换算） */
-  if(tc==='dark')css.push('body,body.theme-infernal{--tx:#161d2b;--tx2:#33405c;--tx3:#5b6a88}');
-  else if(tc==='light')css.push('body,body.theme-infernal{--tx:#f7fafd;--tx2:#dde7f3;--tx3:#b7c5da}');
+  if(tc==='dark')css.push('body,html.ib-orion body,body.theme-infernal{--tx:#161d2b;--tx2:#33405c;--tx3:#5b6a88}');
+  else if(tc==='light')css.push('body,html.ib-orion body,body.theme-infernal{--tx:#f7fafd;--tx2:#dde7f3;--tx3:#b7c5da}');
   if(u.txShadow){
     let sh;
     if(tc==='dark')sh=['0 1px 2px rgba(255,255,255,0.62),0 0 8px rgba(255,255,255,0.3)','0 1px 2px rgba(232,240,250,0.3),0 0 8px rgba(214,230,248,0.18)'];
@@ -4489,7 +4491,7 @@ function _vzCss(css,u){
   /* ── 全站色调（任务4）：把原生蓝件整套换到所选色调 ── */
   var TA=_vzToneAcc(u);
   if(TA){var R=function(a){return 'rgba('+TA[0]+','+TA[1]+','+TA[2]+','+a+')'};
-    css.push('body,body.theme-infernal{--acc:rgb('+TA[0]+','+TA[1]+','+TA[2]+')}');
+    css.push('body,html.ib-orion body,body.theme-infernal{--acc:rgb('+TA[0]+','+TA[1]+','+TA[2]+')}');
     css.push('#sec-profile-cal .sb-ic{box-shadow:0 6px 14px rgba(25,32,46,0.15),0 0 12px '+R(0.32)+',inset 0 1.5px 0 rgba(255,255,255,0.95),inset 0 -2px 3px rgba(40,48,64,0.16)}');
     css.push('body:not(.theme-infernal) #sec-profile-cal .sb-ic svg{filter:drop-shadow(0 1px 1px rgba(40,46,60,0.55)) drop-shadow(0 2px 4px rgba(40,46,60,0.3))}');
     css.push('body:not(.theme-infernal) .dock-i{color:#333a48}');
@@ -5698,19 +5700,22 @@ function applyTheme(dark){
   }
   document.body.dataset.themed='1';
 
+  var _opm=null;try{_opm=localStorage.getItem('ib_m_theme')}catch(e){}/* Orion：进入时先记住原模式 */
   var _md=dark?'infernal':'internal';window._ibThemeMode=_md;
   document.body.classList.toggle('theme-infernal',!!dark);
   try{localStorage.setItem('ib_m_theme',_md)}catch(e){}
+  try{if(_opm==='orion'&&!dark){localStorage.setItem('ib_m_theme','orion');window._ibThemeMode='orion';document.documentElement.classList.add('ib-orion')}else{document.documentElement.classList.remove('ib-orion')}}catch(e){}/* Orion · 雾紫玻璃：亮色应用不冲掉 Orion（主题包见文件尾部） */
   /* APP 适配：状态栏颜色跟随主题 */
   try{
     var _pc=(typeof _mp==='object'&&_mp&&_mp.pwa)||{};var mc=document.getElementById('meta-theme-color');if(mc)mc.setAttribute('content',dark?(_pc.c2||'#181e32'):(_pc.c1||'#dfe9f6'));
     var sb=document.querySelector('meta[name="apple-mobile-web-app-status-bar-style"]');if(sb)sb.setAttribute('content',dark?'black-translucent':'default');
   }catch(e){}
+  try{if(window._ibThemeMode==='orion'){var _omc=document.getElementById('meta-theme-color');if(_omc)_omc.setAttribute('content','#e6d9f5')}}catch(e){}/* Orion：状态栏色跟主题包走 */
   /* 双主题素材：切主题即换用对应主题的头像/封面/作品集 */
   try{if(currentPage==='profile'&&_sec.profile==='card')renderProfile()}catch(e){}
   try{_tbUserDraw()}catch(e){}
 }
-$('theme-drop').addEventListener('click',()=>applyTheme(!document.body.classList.contains('theme-infernal')));
+$('theme-drop').addEventListener('click',()=>(window.__ibThemeCycle?window.__ibThemeCycle():applyTheme(!document.body.classList.contains('theme-infernal'))));
 
 /* ═══════════ 抽屉 · 导航 · 底部分区坞 ═══════════ */
 const TITLES={guide:'Guide',profile:'Home',blog:'Blog',chat:'Chat',letters:'Letters',memory:'Memory',api:'API',diy:'DIY',icode:'ICode',data:'Data',visual:'Visual',beyond:'Internet Beyond'};/* v121-p：#4.3 Circle 页顶栏全名 */
@@ -8015,7 +8020,7 @@ async function _favOpen(startCid){var old=document.getElementById('fav-ov');if(o
   ov.innerHTML='<div class="cv-head glass fav-head"><button class="icon-btn" id="fav-back" aria-label="返回"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></button><div class="cv-title"><div class="fav-tt" id="fav-tt"></div></div><button class="icon-btn" id="fav-theme" aria-label="切换主题"><svg viewBox="0 0 24 24"><path d="M12 3.5c-3 3.2-5 5.8-5 8.7a5 5 0 0 0 10 0c0-2.9-2-5.5-5-8.7z"/></svg></button></div><div class="fav-body"><div class="fav-card" id="fav-card"></div><div class="fav-wall"></div></div>';
   document.body.appendChild(ov);
   ov.querySelector('#fav-back').addEventListener('click',function(){try{if(_favAu)_favAu.pause()}catch(e){}ov.remove()});
-  ov.querySelector('#fav-theme').addEventListener('click',function(){try{applyTheme(!document.body.classList.contains('theme-infernal'))}catch(e){}});
+  ov.querySelector('#fav-theme').addEventListener('click',function(){try{(window.__ibThemeCycle?window.__ibThemeCycle():applyTheme(!document.body.classList.contains('theme-infernal')))}catch(e){}});
   function nameOf(id){var c=cs.filter(function(x){return x.id===id})[0];if(c){try{return c._group?(c.name||'群聊'):cfgName(c)}catch(e){}}var f=all.filter(function(x){return x.cfgId===id})[0];return (f&&f.cfgName)||'TA'}
   function avaOf(id){var c=cs.filter(function(x){return x.id===id})[0];try{return c?(_pfAvatar(c)||''):''}catch(e){return ''}}
   function step(d){var i=ids.indexOf(cur);cur=ids[(i+d+ids.length)%ids.length];paint()}
@@ -11640,6 +11645,7 @@ function _pwaApply(){try{
     var fv=document.getElementById('ib-fav');if(fv)fv.href=icon}
   var dark=document.body.classList.contains('theme-infernal');
   var mc=document.getElementById('meta-theme-color');if(mc)mc.setAttribute('content',dark?(pw.c2||'#181e32'):(pw.c1||'#dfe9f6'));
+  try{if(window._ibThemeMode==='orion'&&mc)mc.setAttribute('content','#e6d9f5')}catch(e){}/* Orion：状态栏色跟主题包走 */
   var vp=document.querySelector('meta[name="viewport"]');
   if(vp){var v=vp.getAttribute('content')||'';var has=/,?\s*viewport-fit=cover/;
     if(pw.safe&&!has.test(v))vp.setAttribute('content',v+',viewport-fit=cover');
@@ -23920,7 +23926,7 @@ var PAGES=['profile','chat','memory','blog','api','visual','guide','icode','data
 function doOpen(page){page=String(page||'').trim();if(PAGES.indexOf(page)===-1)return{ok:false,msg:'没有这个页面：'+page};return{ok:true,label:'去 '+page+' 页',jump:page}}
 var RUNS={theme:'切换明暗主题',export:'去 Data 页导出备份',skinReset:'还原美化包（配色与壁纸）',lockfeedClear:'清空锁屏消息',openApp:'打开桌面 APP'};
 async function doRun(name,arg){name=String(name||'').trim();arg=String(arg||'').trim();if(!RUNS[name])return{ok:false,msg:'不认识的动作 '+name};
-  try{if(name==='theme'){var dark=document.body.classList.contains('theme-infernal');applyTheme(!dark);return{ok:true,label:'已切到'+(dark?'明亮':'暗色')+'主题'}}
+  try{if(name==='theme'){var dark=document.body.classList.contains('theme-infernal');if(window.__ibThemeCycle){window.__ibThemeCycle();var _nm2=null;try{_nm2=localStorage.getItem('ib_m_theme')}catch(_e2){}return{ok:true,label:'已切到'+(_nm2==='orion'?'Orion · 雾紫玻璃':(_nm2==='infernal'?'暗色':'明亮'))+'主题'}}applyTheme(!dark);return{ok:true,label:'已切到'+(dark?'明亮':'暗色')+'主题'}}
     if(name==='export'){return{ok:true,label:'去 Data 页导出备份（那里的「导出」一键打包全部数据）',jump:'data'}}
     if(name==='skinReset'){if(!(window.IBSandbox&&IBSandbox.skinReset))return{ok:false,msg:'这台上没有美化包'};await IBSandbox.skinReset();return{ok:true,label:'已还原美化包，视觉设置里的配色与壁纸恢复生效'}}
     if(name==='lockfeedClear'){if(!window.IBLockFeed)return{ok:false,msg:'这台上没有锁屏消息'};IBLockFeed.clear();return{ok:true,label:'锁屏消息已清空'}}
@@ -24207,6 +24213,167 @@ function boot(){(async function(){try{if(typeof loadMP==='function')await loadMP
   try{if(typeof SEC_RENDER!=='undefined'&&SEC_RENDER){var o9=SEC_RENDER['visual:main'];SEC_RENDER['visual:main']=function(){try{if(o9)o9.apply(this,arguments)}catch(e){}apply()}}}catch(e){}
   var sw=document.getElementById('ui-reduce');if(sw)sw.addEventListener('click',function(){setTimeout(apply,60)})})()}
 window.IBFx={apply:apply,set:set,cur:cur};if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',boot);else setTimeout(boot,0)})();
+</script>
+<style id="ib-orion-theme">
+/* ═══════════ Orion · 雾紫玻璃（Misty-Purple Liquid Glass）═══════════
+   增量主题包：作用域 html.ib-orion，不改动任何既有选择器与业务逻辑。
+   切换路径：水滴键循环 明亮 → 暗色 → Orion（ib-orion-pack 提供 __ibThemeCycle）。
+   移除方式：删掉本 style 与其后 ib-orion-pack 两个块即可完整还原。 */
+/* ── 0. 调色板：低饱和雾紫 / 奶油粉 / 清透冰蓝（变量置于 html.ib-orion body 层压过默认值；
+      用户在 Visual 页的自定义强调色 / 文字色经注入器加挂 html.ib-orion body 后依旧优先） ── */
+html.ib-orion body{
+  --tx:#51445f;--tx2:#897b98;--tx3:#a99bb8;--acc:#9473c4;
+  --glass:rgba(250,246,254,0.55);--glass-line:rgba(255,255,255,0.78);
+  --glass-shadow:0 12px 36px rgba(148,115,196,0.16);
+  --panel:rgba(248,243,253,0.6);--panel-line:rgba(255,255,255,0.75);
+  --soft:rgba(244,221,232,0.4);--line:rgba(148,115,196,0.22);
+  --think:#7a6b8e;--think-line:rgba(148,115,196,0.4);
+  --sheet:rgba(246,240,252,0.88);--danger:#c25e7a;--gold:#c9a86a;
+  --scrim:linear-gradient(180deg,rgba(240,231,250,0.26),rgba(236,226,248,0.46));
+  /* 雾紫壁纸：奶油粉（左上）+ 冰蓝（右上）+ 深雾紫（底部）；用户自定义壁纸经 !important 依旧优先 */
+  --bgimg:radial-gradient(120% 90% at 14% 6%,rgba(244,221,232,0.92) 0%,rgba(244,221,232,0) 55%),radial-gradient(110% 100% at 86% 10%,rgba(221,233,247,0.95) 0%,rgba(221,233,247,0) 52%),radial-gradient(140% 110% at 50% 104%,rgba(193,166,226,0.85) 0%,rgba(193,166,226,0) 58%),linear-gradient(168deg,#f0e6f9 0%,#e9ddf6 40%,#e2d7f1 72%,#d9cbee 100%);
+  background:#ece4f6;
+}
+html.ib-orion #top-veil{background:linear-gradient(180deg,rgba(236,228,246,0.9),rgba(236,228,246,0.55) 55%,transparent)}
+html.ib-orion #ib-splash{background:#ece4f6}
+/* ── 1. 液态玻璃表面：顶栏 / 底栏 / 输入区 / 弹层（半透明 + 18px 模糊 + 提饱和 +
+      细白高光边 + 紫灰柔投影 + 左上内高光；主卡片更实，次级更透） ── */
+html.ib-orion .glass,
+html.ib-orion #topbar,
+html.ib-orion #dock,
+html.ib-orion .cv-input,
+html.ib-orion .sheet{
+  background:linear-gradient(140deg,rgba(250,246,254,0.62) 0%,rgba(243,236,251,0.52) 55%,rgba(247,240,253,0.62) 100%);
+  -webkit-backdrop-filter:blur(18px) saturate(1.35);
+  backdrop-filter:blur(18px) saturate(1.35);
+  border-color:rgba(255,255,255,0.75);
+  box-shadow:0 12px 36px rgba(148,115,196,0.16),inset 1.5px 1.5px 0 rgba(255,255,255,0.7),inset -1px -1px 0 rgba(255,255,255,0.2);
+}
+html.ib-orion .card,html.ib-orion .set-card{
+  background:linear-gradient(150deg,rgba(252,249,255,0.84) 0%,rgba(246,240,253,0.76) 100%);
+  border:1px solid rgba(255,255,255,0.78);
+  box-shadow:0 10px 30px rgba(148,115,196,0.15),inset 1.5px 1.5px 0 rgba(255,255,255,0.65);
+  border-radius:18px;
+}
+html.ib-orion .wgt,html.ib-orion .dw-item{
+  background:linear-gradient(150deg,rgba(250,246,254,0.44) 0%,rgba(244,236,252,0.36) 100%);
+  border-color:rgba(255,255,255,0.6);
+}
+/* ── 2. 聊天气泡：AI＝浅冰蓝→浅雾紫（清透偏亮）；用户＝低饱和紫→粉（两端点差异明显）；
+      均带壁纸透出与深紫文字；高光带随按压轻移 ── */
+html.ib-orion #cv-msgs .m.ai,html.ib-orion #fav-ov .m.ai{
+  background-image:linear-gradient(105deg,rgba(255,255,255,0) 38%,rgba(255,255,255,0.42) 50%,rgba(255,255,255,0) 62%),linear-gradient(155deg,rgba(226,238,251,0.8) 0%,rgba(230,222,247,0.72) 100%);
+  background-size:220% 220%,100% 100%;
+  background-position:0% 0%,0 0;
+  border:1px solid rgba(255,255,255,0.8)!important;
+  -webkit-backdrop-filter:blur(16px) saturate(1.3);backdrop-filter:blur(16px) saturate(1.3);
+  box-shadow:0 6px 20px rgba(148,115,196,0.13),inset 0 1px 0 rgba(255,255,255,0.55);
+  color:#51445f;
+  transition:background-position .22s ease;
+}
+html.ib-orion #cv-msgs .m.user,html.ib-orion #fav-ov .m.user{
+  background-image:linear-gradient(105deg,rgba(255,255,255,0) 38%,rgba(255,255,255,0.4) 50%,rgba(255,255,255,0) 62%),linear-gradient(155deg,rgba(219,196,242,0.82) 0%,rgba(243,209,226,0.78) 100%);
+  background-size:220% 220%,100% 100%;
+  background-position:0% 0%,0 0;
+  border:1px solid rgba(255,255,255,0.78)!important;
+  -webkit-backdrop-filter:blur(16px) saturate(1.3);backdrop-filter:blur(16px) saturate(1.3);
+  box-shadow:0 6px 20px rgba(148,115,196,0.16),inset 0 1px 0 rgba(255,255,255,0.55);
+  color:#51445f;
+  transition:background-position .22s ease;
+}
+html.ib-orion #cv-msgs .m.ai:active,html.ib-orion #cv-msgs .m.user:active{background-position:100% 0,0 0}
+html.ib-orion body .m{text-shadow:0 1px 6px rgba(255,255,255,0.3)}
+/* 系统提示 / 日期 / 入群行：固定半透明柔紫（ib-orion-pack 给无 ai/user 气泡的行打 ib-orion-sys） */
+html.ib-orion .mrow.ib-orion-sys{align-items:center}
+html.ib-orion .mrow.ib-orion-sys .m,
+html.ib-orion .m.sys,html.ib-orion .mrow.sys .m{
+  align-self:center;max-width:88%;
+  background:rgba(216,199,240,0.55)!important;
+  border:1px solid rgba(255,255,255,0.62)!important;
+  box-shadow:none!important;
+  color:#6e5f80!important;
+  -webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);
+}
+/* ── 3. 聊天页头部：深紫标题、紫灰图标、浅灰紫副标 ── */
+html.ib-orion #cv-name{color:#51445f}
+html.ib-orion #cv-back,html.ib-orion #chat-side-btn,html.ib-orion .cv-head .icon-btn{color:#7a688f}
+html.ib-orion #cv-sub,html.ib-orion .cv-sub,html.ib-orion #cv-model{color:#897b98}
+html.ib-orion .dock-i{color:#5d4f70}
+html.ib-orion .dock-i svg{filter:drop-shadow(0 1.5px 3px rgba(148,115,196,0.35))}
+/* ── 4. 控件：强调紫统一（光标 / 选中 / 滑块 / 输入聚焦光晕） ── */
+html.ib-orion ::selection{background:rgba(148,115,196,0.32)}
+html.ib-orion #cv-ta,html.ib-orion textarea,html.ib-orion input{caret-color:#9473c4}
+html.ib-orion input[type=range]{accent-color:#9473c4}
+html.ib-orion #cv-ta{background:rgba(250,246,254,0.62)}
+html.ib-orion #cv-ta:focus{border-color:#9473c4;box-shadow:0 0 0 3px rgba(148,115,196,0.18)}
+html.ib-orion .m.selected{box-shadow:0 0 0 2px rgba(148,115,196,0.4),0 8px 26px rgba(148,115,196,0.25)!important}
+/* ── 5. 轻动效：淡入 200ms / 按压缩放 180ms（尊重系统减少动效） ── */
+@keyframes ibOrionIn{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
+html.ib-orion .mrow{animation:ibOrionIn .2s ease both}
+html.ib-orion .btn,html.ib-orion .dock-i,html.ib-orion .send-btn,html.ib-orion .icon-btn{transition:transform .18s ease,box-shadow .2s ease}
+html.ib-orion .btn:active,html.ib-orion .dock-i:active,html.ib-orion .send-btn:active,html.ib-orion .icon-btn:active{transform:scale(.97)}
+@media (prefers-reduced-motion:reduce){
+  html.ib-orion .mrow{animation:none}
+  html.ib-orion .btn,html.ib-orion .dock-i,html.ib-orion .send-btn,html.ib-orion .icon-btn{transition:none}
+}
+/* ── 6. 降级：不支持 backdrop-filter 时提高不透明度，保证可读 ── */
+@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){
+  html.ib-orion .glass,html.ib-orion #topbar,html.ib-orion #dock,html.ib-orion .cv-input,html.ib-orion .sheet{background:rgba(244,238,251,0.94)}
+  html.ib-orion .card,html.ib-orion .set-card{background:rgba(248,243,253,0.96)}
+  html.ib-orion #cv-msgs .m.ai{background-image:linear-gradient(155deg,rgba(235,241,251,0.96),rgba(232,226,248,0.95))!important}
+  html.ib-orion #cv-msgs .m.user{background-image:linear-gradient(155deg,rgba(232,214,244,0.96),rgba(245,219,231,0.95))!important}
+}
+</style>
+<script id="ib-orion-pack">
+/* Orion · 雾紫玻璃 —— 集成脚本：三态主题循环 + 系统提示行打标（只读判断，不参与业务逻辑） */
+(function(){'use strict';
+  if(window.__ibThemeCycle)return;
+  function mode(){try{return localStorage.getItem('ib_m_theme')||'internal'}catch(e){return'internal'}}
+  window.__ibThemeCycle=function(){
+    var m=mode();
+    var next=(m==='internal')?'infernal':(m==='infernal')?'orion':'internal';
+    try{localStorage.setItem('ib_m_theme',next)}catch(e){}
+    if(typeof applyTheme==='function')applyTheme(next==='infernal');
+  };
+  if(mode()==='orion')document.documentElement.classList.add('ib-orion');
+  /* 锁屏默认壁纸 Orion 化：仅当锁屏用的是内置默认壁纸（_LK_DEFWP）时注入；用户自定义壁纸始终优先 */
+  (function lkOrion(){
+    if(!document.documentElement.classList.contains('ib-orion'))return;
+    var tries=0;
+    (function poll(){
+      var wall=document.querySelector('.lk-wall');
+      if(wall){
+        try{
+          var def=window._LK_DEFWP?String(window._LK_DEFWP):'';
+          var cur=wall.style.backgroundImage||'';
+          var isDefault=cur===''||cur.indexOf(def.slice(0,60))>=0;
+          if(isDefault&&!document.getElementById('ib-orion-lkw')){
+            var s=document.createElement('style');s.id='ib-orion-lkw';
+            s.textContent='html.ib-orion .lk-wall{background-image:radial-gradient(120% 100% at 16% 8%,rgba(244,221,232,0.9) 0%,rgba(244,221,232,0) 55%),radial-gradient(110% 100% at 84% 12%,rgba(221,233,247,0.9) 0%,rgba(221,233,247,0) 52%),linear-gradient(170deg,#e9ddf6 0%,#ddd0f0 45%,#c9b8e6 100%)!important;filter:blur(18px) saturate(1.1)!important;transform:scale(1.12)!important}';
+            document.head.appendChild(s);
+          }
+        }catch(e){}
+        return;
+      }
+      if(++tries<20)setTimeout(poll,150);
+    })();
+  })();
+  function tagRow(r){try{r.setAttribute('data-ibosys','1');if(!r.querySelector('.m.ai,.m.user'))r.classList.add('ib-orion-sys')}catch(e){}}
+  function tagScope(root){try{var rows=(root||document).querySelectorAll('#cv-msgs .mrow:not([data-ibosys])');for(var i=0;i<rows.length;i++)tagRow(rows[i])}catch(e){}}
+  function boot(){
+    try{tagScope(null);
+      var cv=document.getElementById('cv-msgs');
+      if(cv&&window.MutationObserver){new MutationObserver(function(ms){
+        for(var i=0;i<ms.length;i++){var ad=ms[i].addedNodes;
+          for(var j=0;j<ad.length;j++){var n=ad[j];
+            if(n.nodeType===1){if(n.classList&&n.classList.contains('mrow'))tagRow(n);else if(n.querySelectorAll)tagScope(n)}
+          }
+        }
+      }).observe(cv,{childList:true})}
+    }catch(e){}
+  }
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',boot);else boot();
+})();
 </script>
 </body>
 </html>
